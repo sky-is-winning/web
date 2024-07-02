@@ -1,0 +1,4 @@
+<cross-domain-policy>
+<script/>
+<allow-access-from domain="*" secure="false"/>
+</cross-domain-policy>

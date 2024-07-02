@@ -1,0 +1,21 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "Dynamic web server for CPHistory",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sky-is-winning/web/"
+  },
+  "author": "sky",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "mime-types": "^2.1.35"
+  }
+}
