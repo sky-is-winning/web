@@ -84,6 +84,7 @@ export default class WebServer {
             host.shift();
             const myDomain = host.join(".");
             const replacements = [
+                { target: "http://", replacement: "https://" },
                 { target: "media1.clubpenguin.com", replacement: `media.${myDomain}` },
                 { target: "media2.clubpenguin.com", replacement: `media.${myDomain}` },
                 { target: "play.clubpenguin.com", replacement: `play.${myDomain}` },
