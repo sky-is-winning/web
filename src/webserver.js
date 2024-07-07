@@ -88,6 +88,8 @@ export default class WebServer {
                 { target: "media1.clubpenguin.com", replacement: `media.${myDomain}` },
                 { target: "media2.clubpenguin.com", replacement: `media.${myDomain}` },
                 { target: "play.clubpenguin.com", replacement: `play.${myDomain}` },
+                { target: "www.clubpenguin.com", replacement: `play.${myDomain}` },
+                { target: "secured.clubpenguin.com", replacement: `play.${myDomain}` },
                 { target: "n7vcp1clubpwns.clubpenguin.com", replacement: `play.${myDomain}` },
                 { target: "CP_GAME_DATE", replacement: dateCookie }
             ];
