@@ -74,6 +74,8 @@ export default class WebServer {
             return;
         }
 
+        res.setHeader("Access-Control-Allow-Origin", "*");
+
         if (fileLoc.endsWith(".html") || fileLoc.endsWith(".xml") || fileLoc.endsWith(".css") || fileLoc.endsWith(".json")) {
             let cookie = req.headers.cookie;
             let dateCookie = (cookie && cookie.includes("gameAtDate=")) ? cookie.split(";").find(cookie => cookie.includes("gameAtDate=")).split("=")[1] : "default";
@@ -114,17 +116,14 @@ export default class WebServer {
             return "./content";
         }
 
-        if (fileLoc == "./vanilla-media/media/crossdomain.xml") {
-            return "./content";
-        }
-
-        if (!queryString || queryString.includes("default") || queryString == "") {
+        if (!queryString || queryString == "") {
             return false;
         }
 
         const date = queryString.split("=")[1];
 
         if (fs.existsSync(`./content/${date}/${fileLoc.replace("./vanilla-media", "")}`)) {
+            console.log(`Serving ./content/${date}/${fileLoc.replace("./vanilla-media", "")}`);
             return `./content/${date}/${fileLoc.includes("/media/") ? "media" : "play"}`;
         }
     }

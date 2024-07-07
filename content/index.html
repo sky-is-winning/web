@@ -26,7 +26,28 @@
 <link type="text/css" rel="stylesheet" href="/sites/default/files/css/css_6sGcdaud_kk5LWaaq4lZk2ZLw8uneQM4wYx5rg2QgOM.css" media="all" />
 <link type="text/css" rel="stylesheet" href="/sites/default/files/css/css_9Heh1u--mIfOomnfZC-JIjM3PxmkhjTogDetvyuVnMU.css" media="all" />
 <link type="text/css" rel="stylesheet" href="/sites/default/files/css/css_5AoaSUlnRluwt_SO1GRzTQdCdcJf0Aw-MqGesNvp_6Y.css" media="all" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {
+        polyfills: true,
+        autoplay: "on",
+		logLevel: "trace",
+        maxExecutionDuration: 60,
+        socketProxy: [
+            {
+                host: "127.0.0.1",
+                port: 6112,
+                proxyUrl: "ws://localhost:6113"
+            },
+            {
+                host: "127.0.0.1",
+                port: 9875,
+                proxyUrl: "ws://localhost:9876"
+            }
+        ]
+    };
+</script>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 
 <!--[if lte IE 9]>
 <link type="text/css" rel="stylesheet" href="/sites/play.clubpenguin.com/themes/club_penguin/css/ie-lte-9.css?om3jak" media="all" />
@@ -459,61 +480,17 @@
         'Beta Test Party': 'beta'
     };
 
-    $(document).ready(function () {
-        // Function to revert href to '#'
-        function revertHrefToHash() {
-            $('#bottom-languages a').each(function () {
-                $(this).attr('href', '#');
+    document.addEventListener('DOMContentLoaded', function () {// Add click event listener to set cookie based on text content
+            document.querySelectorAll('#bottom-languages a').forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const selectedDate = dict[this.textContent.trim()];
+                    if (selectedDate) {
+                        setGameAtDateCookie(selectedDate);
+                    }
+                    window.location.reload();
+                });
             });
-        }
-
-        // Initial setup: revert href to '#'
-        revertHrefToHash();
-
-        // Create a Mutation Observer to monitor changes in href attributes
-        const observer = new MutationObserver(function (mutationsList) {
-            mutationsList.forEach(function (mutation) {
-                if (mutation.type === 'childList' || (mutation.type === 'attributes' && mutation.attributeName === 'href')) {
-                    revertHrefToHash(); // Revert href to '#'
-                }
-            });
-        });
-
-        // Configuration for the observer (observe changes to attributes and childList)
-        const config = { childList: true, subtree: true, attributes: true, attributeFilter: ['href'] };
-
-        // Start observing changes in #bottom-languages and its descendants
-        observer.observe(document.getElementById('bottom-languages'), config);
-
-        // Add click event listener to set cookie based on text content
-        $('#bottom-languages a').on('click', function (event) {
-            event.preventDefault();
-            const selectedDate = dict[this.textContent.trim()];
-            if (selectedDate) {
-                setGameAtDateCookie(selectedDate);
-            }
-            window.location.reload();
-        });
-
-        // Function to set cookie
-        function setGameAtDateCookie(selectedDate) {
-            // Set cookie
-            document.cookie = `gameAtDate=${selectedDate}; path=/`;
-
-            // Optional: Log to console for debugging
-            console.log(`Cookie set: gameAtDate=${selectedDate}`);
-        }
-
-        function getGameDate(){
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.startsWith('gameAtDate=')) {
-                    return cookie.substring(11);
-                }
-            }
-            return '';
-        }
     });
 </script>
 <script type="application/ld+json">
