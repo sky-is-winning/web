@@ -16,6 +16,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
-    "mime-types": "^2.1.35"
+    "mime-types": "^2.1.35",
+    "public-ip": "^6.0.2"
   }
 }

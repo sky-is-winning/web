@@ -1,5 +1,5 @@
 import express from 'express';
-import bodyParser from 'body-parser';
+import {publicIpv4} from 'public-ip';
 import fs from 'fs';
 import mime from 'mime-types';
 import { EventEmitter } from 'events';
@@ -17,6 +17,8 @@ const FORWARD_TO_DASH = {
 };
 
 const DASH_URL = "http://localhost:3000";
+
+const PUBLIC_IP = await publicIpv4();
 
 export default class WebServer {
     constructor() {
@@ -48,7 +50,7 @@ export default class WebServer {
         });
     }
 
-    serve(prefix, req, res) {
+    async serve(prefix, req, res) {
         if (Object.keys(FORWARD_TO_DASH).some(path => req.url.includes(path))) {
             return this.forwardToDash(req, res);
         }
@@ -91,7 +93,8 @@ export default class WebServer {
                 { target: "www.clubpenguin.com", replacement: `play.${myDomain}` },
                 { target: "secured.clubpenguin.com", replacement: `play.${myDomain}` },
                 { target: "n7vcp1clubpwns.clubpenguin.com", replacement: `play.${myDomain}` },
-                { target: "CP_GAME_DATE", replacement: dateCookie }
+                { target: "CP_GAME_DATE", replacement: dateCookie },
+                { target: "127.0.0.1", replacement: PUBLIC_IP},
             ];
 
             replacements.forEach(({ target, replacement }) => {
