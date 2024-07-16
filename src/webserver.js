@@ -230,7 +230,7 @@ export default class WebServer {
     }
 
     async serve(prefix, req, res) {
-        if (Object.keys(FORWARD_TO_DASH).some(path => req.url.includes(path))) {
+        if (Object.keys(FORWARD_TO_DASH).some(path => req.url.startsWith(path))) {
             return this.forwardToDash(req, res);
         }
 
@@ -333,6 +333,8 @@ export default class WebServer {
                 return `./content/default/${fileLoc.includes("/media/") ? "media" : "play"}`;
             }
         }
+		
+		return false
     }
 
 
