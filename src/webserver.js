@@ -245,6 +245,7 @@ export default class WebServer {
         const replace = await this.shouldReplace(fileLoc, queryString, req, res);
         if (replace) {
             if (replace === true) return;
+            console.log(`Serving from ${replace}`);
             return this.serve(replace, req, res);
         }
 
@@ -298,41 +299,44 @@ export default class WebServer {
     }
 
     async shouldReplace(fileLoc, queryString, req, res) {
+        fileLoc = fileLoc.replaceAll("//", "/");
+
         if (fileLoc.startsWith("./content")) return false;
 
         if (fileLoc == "./vanilla-media/play/") {
             return "./content";
         }
 
-        if (!queryString || queryString == "") {
-            return false;
-        }
-
-        const date = queryString.split("=")[1];
         const filePath = fileLoc.replace("./vanilla-media", "");
 
-        if (fs.existsSync(`./content/${date}${filePath}`)) {
-            return `./content/${date}/${fileLoc.includes("/media/") ? "media" : "play"}`;
-        } else if (Object.keys(PARTY_DATES).includes(date)) {
-            if (fs.existsSync(`./content/dated${filePath}.json`)) {
-                let json = JSON.parse(fs.readFileSync(`./content/dated${filePath}.json`, "utf8"))
-                let dateOfParty = new Date(PARTY_DATES[date]);
-                let swfToGrab = Object.values(json)[0];
-                for (let key in json) {
-                    let dateOfKey = new Date(key);
-                    if (dateOfKey <= dateOfParty) {
-                        swfToGrab = json[key];
+        if (queryString && queryString != "") {
+            const date = queryString.split("=")[1];
+        
+            if (fs.existsSync(`./content/${date}${filePath}`)) {
+                return `./content/${date}/${fileLoc.includes("/media/") ? "media" : "play"}`;
+            } else if (Object.keys(PARTY_DATES).includes(date)) {
+                if (fs.existsSync(`./content/dated${filePath}.json`)) {
+                    let json = JSON.parse(fs.readFileSync(`./content/dated${filePath}.json`, "utf8"))
+                    let dateOfParty = new Date(PARTY_DATES[date]);
+                    let swfToGrab = Object.values(json)[0];
+                    for (let key in json) {
+                        let dateOfKey = new Date(key);
+                        if (dateOfKey <= dateOfParty) {
+                            swfToGrab = json[key];
+                        }
                     }
+                    res.setHeader("Access-Control-Allow-Origin", "*");
+                    const fileLoc = `./content/dated/${filePath.split(".")[0]}/${swfToGrab}`
+                    const fileStream = fs.createReadStream(fileLoc);
+                    fileStream.pipe(res);
+                    console.log(`Serving ${fileLoc}`);
+                    return true;
                 }
-                res.setHeader("Access-Control-Allow-Origin", "*");
-                const fileLoc = `./content/dated/${filePath.split(".")[0]}/${swfToGrab}`
-                const fileStream = fs.createReadStream(fileLoc);
-                fileStream.pipe(res);
-                console.log(`Serving ${fileLoc}`);
-                return true;
-            } else if (fs.existsSync(`./content/default${filePath}`)) {
-                return `./content/default/${fileLoc.includes("/media/") ? "media" : "play"}`;
             }
+        }
+
+        if (fs.existsSync(`./content/default${filePath}`)) {
+            return `./content/default/${fileLoc.includes("/media/") ? "media" : "play"}`;
         }
 		
 		return false
@@ -385,7 +389,8 @@ export default class WebServer {
             res.status(dashResponse.status);
 
             // Forward response body
-            const responseBody = await dashResponse.text();
+            let responseBody = await dashResponse.text();
+            responseBody = responseBody.replace("localhost", PUBLIC_IP);
             res.send(responseBody);
         } catch (error) {
             console.error(error);
