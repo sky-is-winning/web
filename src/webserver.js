@@ -7,15 +7,16 @@ import { EventEmitter } from 'events';
 import raw from 'raw-body';
 
 const FORWARD_TO_DASH = {
-    "/penguin/create": "create/vanilla/$lang",
-    "/penguin/activate": "activate/vanilla/$lang",
-    "/penguin/forgot-password": "password/$lang",
-    "/avatar/": "avatar/$user?$args",
+    "^/(penguin/create|[a-zA-Z]{2}/penguin/create)/?$": "create/vanilla/$lang",
+    "^/(penguin/activate|[a-zA-Z]{2}/penguin/activate)/?$": "activate/vanilla/$lang",
+    "^/(penguin/forgot-password|[a-zA-Z]{2}/penguin/forgot-password)/?$": "password/$lang",
+    "^/avatar/\\d+/cp(\\?.*)?$": "avatar/$user?$args",
     "/web-service/snfgenerator/session": "session",
     "/api/v0.2/xxx/game/get/world-name-service/start_world_request": "swrequest?$args",
-    "/manager": "manager",
+    "/manager/*": "manager",
     "/social/autocomplete/v2/search/suggestions": "autocomplete?$args"
 };
+
 
 const DASH_URL = "http://localhost:3000";
 
@@ -230,7 +231,7 @@ export default class WebServer {
     }
 
     async serve(prefix, req, res) {
-        if (Object.keys(FORWARD_TO_DASH).some(path => req.url.startsWith(path))) {
+        if (Object.keys(FORWARD_TO_DASH).some(path => new RegExp(path).test(req.url))) {
             return this.forwardToDash(req, res);
         }
 
@@ -276,7 +277,7 @@ export default class WebServer {
                 
             ];
 
-            if (process.argv[3] != "local") replacements.push({ target: "http://", replacement: " ://" }, { target: "127.0.0.1", replacement: PUBLIC_IP});
+            if (process.argv[3] != "local") replacements.push({ target: "http://", replacement: "https://" }, { target: "127.0.0.1", replacement: PUBLIC_IP});
 
             replacements.forEach(({ target, replacement }) => {
                 const regex = new RegExp(`(?<=^|[\\r\\n]).*?(${target}.*)`, 'g');
@@ -339,7 +340,7 @@ export default class WebServer {
 
 
      async forwardToDash(req, res) {
-        const path = FORWARD_TO_DASH[Object.keys(FORWARD_TO_DASH).find(path => req.url.includes(path))];
+        const path = FORWARD_TO_DASH[Object.keys(FORWARD_TO_DASH).find(path => new RegExp(path).test(req.url))];
         let url = `${DASH_URL}/${path}`;
 
         // Replace placeholders in URL
@@ -353,6 +354,10 @@ export default class WebServer {
         if (req.url.includes("/avatar/")) {
             const user = req.url.split("/avatar/")[1].split("/")[0];
             url = url.replace("$user", user);
+         }
+         
+         if (req.url.includes("/manager/")) {
+            url = `${DASH_URL}${req.url}`
         }
 
         const queryString = req.url.split("?")[1];
