@@ -317,7 +317,54 @@
         return '';
     }
 
+    function handleSuccessfulLogin(userObj) {
+        localStorage.setItem('loggedInUser', userObj.Username);
+        localStorage.setItem('loggedInPass', userObj.Password);
+    }
+
+    function getLoggedInUser() {
+        return localStorage.getItem('loggedInUser');
+    }
+
+    function getLoggedInPass() {
+        return localStorage.getItem('loggedInPass');
+    }
+
+    function clearLoginDetails() {
+        localStorage.removeItem('loggedInUser');
+        localStorage.removeItem('loggedInPass');
+    }
+
+    function shouldAutoLogin() {
+        if (!localStorage.getItem('loggedInUser') || !localStorage.getItem('loggedInPass') || !localStorage.getItem('reloadTime')) {
+            return false;
+        }
+        const reloadTime = new Date(parseInt(localStorage.getItem('reloadTime')));
+        if (Date.now() - reloadTime.getTime() > 1000 * 60) {
+            clearLoginDetails();
+            return false;
+        }
+        return true;
+    }
+
+    function setReloadTime(){
+        localStorage.setItem('reloadTime', Date.now())
+    }
+
+    function isRedeem(){
+        if (document.location.href.includes('/#/redeem')) {
+            return true;
+        }
+    }
+    
     window.getCurrentParty = getGameDate;
+    window.handleSuccessfulLogin = handleSuccessfulLogin;
+    window.getLoggedInUser = getLoggedInUser;
+    window.getLoggedInPass = getLoggedInPass;
+    window.clearLoginDetails = clearLoginDetails;
+    window.shouldAutoLogin = shouldAutoLogin;
+    window.setReloadTime = setReloadTime;
+    window.isRedeem = isRedeem;
 </script>
 <script type="application/ld+json">
     { "@context": "http://schema.org", "@type": "WebSite", "name": "Club Penguin", "url": "/" }

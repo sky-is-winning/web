@@ -245,7 +245,7 @@ export default class WebServer {
         const replace = await this.shouldReplace(fileLoc, queryString, req, res);
         if (replace) {
             if (replace === true) return;
-            console.log(`Serving from ${replace}`);
+            console.log(`Serving from ${replace}${req.url}`);
             return this.serve(replace, req, res);
         }
 
