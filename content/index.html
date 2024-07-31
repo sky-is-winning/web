@@ -27,6 +27,8 @@
 <link type="text/css" rel="stylesheet" href="/sites/default/files/css/css_9Heh1u--mIfOomnfZC-JIjM3PxmkhjTogDetvyuVnMU.css" media="all" />
 <link type="text/css" rel="stylesheet" href="/sites/default/files/css/css_5AoaSUlnRluwt_SO1GRzTQdCdcJf0Aw-MqGesNvp_6Y.css" media="all" />
 <script>
+    const host = document.location.host;
+    const protocol = document.location.protocol == 'https:' ? 'wss' : 'ws';
     window.RufflePlayer = window.RufflePlayer || {};
     window.RufflePlayer.config = {
         polyfills: true,
@@ -35,14 +37,14 @@
         maxExecutionDuration: 60,
         socketProxy: [
             {
-                host: "127.0.0.1",
+                host,
                 port: 6112,
-                proxyUrl: `ws://${document.location.host}:6113`
+                proxyUrl: `${protocol}://${document.location.host}:6113`
             },
             {
-                host: "127.0.0.1",
+                host,
                 port: 9875,
-                proxyUrl: `ws://${document.location.host}:9876`
+                proxyUrl: `${protocol}://${document.location.host}:9876`
             }
         ]
     };
