@@ -37,17 +37,125 @@
             {
                 host: "127.0.0.1",
                 port: 6112,
-                proxyUrl: "ws://localhost:6113"
+                proxyUrl: `ws://${document.location.host}:6113`
             },
             {
                 host: "127.0.0.1",
                 port: 9875,
-                proxyUrl: "ws://localhost:9876"
+                proxyUrl: `ws://${document.location.host}:9876`
             }
         ]
     };
 </script>
 <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<style>
+    #open-menu {
+    position: absolute;
+    right: 25px;
+    z-index: 10;
+    width: 200px
+    }
+#open-menu a {
+    font-family: "proxima_nova_regular", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    display: block;
+    text-align: left;
+    color: #0052af;
+    font-size: 13px;
+    transition: all ease 300ms
+    }
+#open-menu a.top-level {
+    font-family: "proxima_nova_semibold", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    line-height: 1.1;
+    color: #fff;
+    text-align: center;
+    font-size: 18px
+    }
+#open-menu a.top-level span, #open-menu a.top-level div {
+    display: -moz-inline-box;
+    display: inline-block;
+    zoom: 1
+    }
+#open-menu a.top-level .icon {
+    background-image: url(/assets/sites/default/themes/club_penguin/img/common/sprite-header-footer-v2.png);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+    background-position: -421px 0
+    }
+#open-menu a.top-level:hover {
+    color: #b7eeff;
+    text-decoration: none
+    }
+
+#open-menu a.top-level span.indicator {
+    background-image: url(/assets/sites/default/themes/club_penguin/img/common/sprite-header-footer.png);
+    background-repeat: no-repeat;
+    display: -moz-inline-box;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    float: right;
+    width: 8px;
+    height: 35px;
+    margin: 0;
+    padding: 0 12px;
+    background-color: #0562bf;
+    background-position: -1203px -281px;
+    vertical-align: middle;
+    -moz-border-radius: 0 7px 7px 0;
+    -webkit-border-radius: 0 7px 7px 0;
+    border-radius: 0 7px 7px 0
+    }
+header nav #open-menu {
+    position: absolute;
+    right: 150px;
+    z-index: 1;
+    display: inline-block;
+    width: 200px
+    }
+header nav #open-menu a {
+    font-family: "proxima_nova_bold", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    display: block;
+    text-align: left;
+    color: #0052af;
+    font-size: 15px
+    }
+header nav #open-menu a:hover {
+    color: #0052af;
+    background-color: #d3edfd;
+    text-decoration: none
+    }
+header nav #open-menu a.top-level {
+    background-color: #008ce1;
+    width: 150px;
+    height: 26px;
+    line-height: 26px;
+    padding-left: 15px;
+    color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px
+    }
+header nav #open-menu a.top-level span.indicator {
+    float: right;
+    width: 5px;
+    height: 26px;
+    margin: 0;
+    padding: 0 12px;
+    background-color: #007ad2;
+    background-image: url(/assets/sites/default/themes/snowball/img/language-arrow.png);
+    background-repeat: no-repeat;
+    background-position: -13px 8px;
+    vertical-align: middle;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0
+    }
+</style>
 
 <!--[if lte IE 9]>
 <link type="text/css" rel="stylesheet" href="/sites/play.clubpenguin.com/themes/club_penguin/css/ie-lte-9.css?om3jak" media="all" />
@@ -80,8 +188,13 @@
         <li itemprop="name"><a itemprop="url" href="/penguin/create">Create a Penguin</a></li>
         <li itemprop="name"><a itemprop="url" href="https://archives.skyiswinni.ng" class="cpmenu">Powered by Club Penguin Archives</a></li>
     </ul>
+    <div id="open-menu" style="visibility: hidden;">
+        <div>
+            <a id="open-menu-link" class="top-level" href="#" tabindex="1">Open Menu<span class="indicator"></span></a>
+        </div>
+    </div>
     <ul class="navbar navbar-right">
-        <li><a id="logout-link" class="logout" href="/penguin/logout"><img src="/sites/play.clubpenguin.com/themes/snowball/img/icon-logout.png"> Log off</a></li>
+        <li><a class="logout" onclick="logout()" href="/"><img src="/sites/play.clubpenguin.com/themes/snowball/img/icon-logout.png"> Logout</a></li>
     </ul>
 </nav>
 <div id="banner"></div></header>    
@@ -356,6 +469,24 @@
             return true;
         }
     }
+
+    function openSwitcher(b = true){
+        window.shouldOpenSwitcher = () => {return b}
+    }
+
+    document.getElementById('open-menu-link').addEventListener('click', function(e){
+        e.preventDefault();
+        openSwitcher();
+    });
+
+    function logout() {
+        clearLoginDetails();
+        document.cookie
+    }
+
+    function showMenuBtn(){
+        document.getElementById('open-menu').style.visibility = 'visible';
+    }
     
     window.getCurrentParty = getGameDate;
     window.handleSuccessfulLogin = handleSuccessfulLogin;
@@ -365,6 +496,8 @@
     window.shouldAutoLogin = shouldAutoLogin;
     window.setReloadTime = setReloadTime;
     window.isRedeem = isRedeem;
+    window.openSwitcher = openSwitcher;
+    window.showMenuBtn = showMenuBtn;
 </script>
 <script type="application/ld+json">
     { "@context": "http://schema.org", "@type": "WebSite", "name": "Club Penguin", "url": "/" }
