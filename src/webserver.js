@@ -278,7 +278,9 @@ export default class WebServer {
                 
             ];
 
-            if (process.argv[3] != "local") replacements.push({ target: "http://", replacement: "https://" }, { target: "127.0.0.1", replacement: PUBLIC_IP});
+            if (process.argv[3] != "local") replacements.push({ target: "http://", replacement: "https://" }, { target: "127.0.0.1", replacement: PUBLIC_IP });
+            
+            console.log(replacements);
 
             replacements.forEach(({ target, replacement }) => {
                 const regex = new RegExp(`(?<=^|[\\r\\n]).*?(${target}.*)`, 'g');
