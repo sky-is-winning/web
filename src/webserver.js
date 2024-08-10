@@ -2,6 +2,7 @@ import express from 'express';
 import {publicIpv4} from 'public-ip';
 import { EventEmitter } from 'events';
 import Game from './game.js';
+import WWW from './www.js';
 
 const PUBLIC_IP = await publicIpv4();
 
@@ -10,6 +11,7 @@ export default class WebServer {
         this.app = express();
         this.events = new EventEmitter();
         this.game = new Game(PUBLIC_IP);
+        this.www = new WWW();
     }
 
     start() {
@@ -26,7 +28,7 @@ export default class WebServer {
                     this.game.serve('./vanilla-media/media', req, res);
                     break;
                 default:
-                    res.status(404).send('404 Not Found');
+                    this.www.serve(req, res);
                     break;
             }
         });

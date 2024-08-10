@@ -1,0 +1,74 @@
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="viewport" content="width=1024">
+    <title>Club Penguin History</title>
+    <meta property="description"
+        content="Club Penguin History is an unauthorized recreation of Disney's Club Penguin meant to act as an interactive time capsule for those who want to experience any era of Club Penguin.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.cphistory.pw">
+    <meta property="og:title" content="Club Penguin History">
+    <meta property="og:description"
+        content="Club Penguin History is an unauthorized recreation of Disney's Club Penguin meant to act as an interactive time capsule for those who want to experience any era of Club Penguin.">
+    <meta property="og:image" content="/assets/img/logo.webp">
+    <link rel="icon" type="image/x-icon" href="/assets/icon/favicon.ico">
+    <meta name="next-head-count" content="10">
+    <link rel="stylesheet" href="/assets/css/styles.css" data-n-g="">
+</head>
+
+<body>
+    <div id="popup" style="display:none;">
+        <div id="popup-content">
+            <h2>Heads Up!</h2>
+            <br>
+            <p>Club Penguin History is a fan site and is not affiliated with, approved, or endorsed by Disney.</p>
+            <br>
+            <p>If you've heard that this is the official Club Penguin or that 'Club Penguin is Back', that's not correct.</p>
+            <br>
+            <p>By using this site, you are agreeing to our <a href="/terms/">Terms of Service</a> and <a href="/privacy/">Privacy Policy</a>. Please review them before continuing.</p>
+            <br>
+            <button id="close-popup"><strong>Got it!</strong></button>
+        </div>
+    </div>
+    <script>
+        if (!localStorage.getItem('visited')) {
+            document.getElementById('popup').style.display = 'flex';
+            localStorage.setItem('visited', 'true');
+        }
+
+        document.getElementById('close-popup').addEventListener('click', function () {
+            document.getElementById('popup').style.display = 'none';
+        });
+    </script>
+    <div class="layout_header__blB6l">
+        <div class="layout_inner__cEo9S">
+            <div class="layout_logo__lQDF1">
+                <div style="width:150px;display:inline-block">
+                    <a href="/" id="logo">
+                        <span
+                            style="box-sizing:border-box;display:block;overflow:hidden;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;position:relative">
+                            <span
+                                style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;padding-top:45.710857828434314%"></span>
+                            <img alt="Club Penguin History" src="/assets/img/logo.webp" decoding="async" data-nimg="responsive"
+                                style="position:absolute;top:0;left:0;bottom:0;right:0;box-sizing:border-box;padding:0;border:none;margin:auto;display:block;width:0;height:0;min-width:100%;max-width:100%;min-height:100%;max-height:100%"
+                                sizes="100vw">
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="layout_menu__p3c4H">
+                <div class="layout_links__wZK2j">
+                    <a href="/download" target="_self" class="mx-3">Client Download</a>
+                    <a href="https://discord.gg/XEu4K7NPdQ" target="_blank" class="mx-3">Discord</a>
+                    <a href="https://play.cphistory.pw/penguin/create" target="_self" class="mx-3">Create a Penguin</a>
+                </div>
+            </div>
+            <div class="layout_buttons__1_Sf5">
+                <div>
+                    <a href="https://play.cphistory.pw/">
+                        <button class="link-button_button__hvJQn link-button_yellow__XEYeP">Play Now!</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>

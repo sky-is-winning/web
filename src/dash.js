@@ -1,4 +1,4 @@
-import DASH_URL from "./config.js";
+import { DASH_URL } from "./config.js";
 
 export const FORWARD_TO_DASH = {
     "^/(penguin/create|[a-zA-Z]{2}/penguin/create)/?$": "create/vanilla/$lang",
