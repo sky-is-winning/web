@@ -519,12 +519,10 @@ CP.utils.Modal.prototype.close = function(callback){
     	var mobile_slug = '';
       // Watching Play buttons for iOS devices
       if( (navigator.userAgent.match(/iP(hone|od|ad)/i)) ) {
-      	add_mobile_popup = true;
       	mobile_slug = 'ios';
       }
       // Watching Play buttons for Android devices
       else if( (navigator.userAgent.match(/android/i)) ) {
-      	add_mobile_popup = true;
       	mobile_slug = 'android';
       }
       // Inject mobile interstitial details

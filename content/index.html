@@ -726,7 +726,28 @@ var media = "http://media1.clubpenguin.com/";
             "fixed": true,
             "__drupal_alter_by_ref": ["default"]
         },
-        "cp_mobile_interstitial": {},
+        "cp_mobile_interstitial": {
+            "ios": {
+                "title": "Club Penguin is no longer available. Visit us at Club Penguin Island for more information.",
+                "content": "By clicking below you are leaving Club Penguin and are about to go to www.clubpenguinisland.com",
+                "action_link": "https:\/\/www.clubpenguinisland.com\/info",
+                "buttons": {
+                    "cancel": "Cancel",
+                    "action": "Learn More"
+                },
+                "class": "cp-mobile-interstitial ios-interstitial"
+            },
+            "android": {
+                "title": "Club Penguin is no longer available. Visit the Google Play store download information for Club Penguin Island.",
+                "content": "By clicking below you are about to go to the Club Penguin Island app at play.google.com where a different Terms of Use and Privacy Policy will apply.",
+                "action_link": "\/cpi-android-download",
+                "buttons": {
+                    "cancel": "Cancel",
+                    "action": "Download"
+                },
+                "class": "cp-mobile-interstitial android-interstitial"
+            }
+        },
         "jcarousel": {
             "ajaxPath": "\/jcarousel\/ajax\/views"
         },
