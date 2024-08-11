@@ -30,6 +30,7 @@
     <script>
         const host = "127.0.0.1";
         const protocol = document.location.protocol == 'https:' ? 'wss' : 'ws';
+        const proxyHost = document.location.host.replace('play', 'server')
         window.RufflePlayer = window.RufflePlayer || {};
         window.RufflePlayer.config = {
             polyfills: true,
@@ -39,11 +40,11 @@
             socketProxy: [{
                 host,
                 port: 6112,
-                proxyUrl: `${protocol}://${document.location.host}:6113`
+                proxyUrl: `${protocol}://${proxyHost}:6113`
             }, {
                 host,
                 port: 9875,
-                proxyUrl: `${protocol}://${document.location.host}:9876`
+                proxyUrl: `${protocol}://${proxyHost}:9876`
             }]
         };
     </script>
