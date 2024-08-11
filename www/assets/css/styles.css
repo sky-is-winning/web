@@ -8953,7 +8953,8 @@ a:hover {
 
 .fullPageText {
     background-color: #fff;
-    padding: 3%
+    padding: 3%;
+    font-size: 1.5rem
 }
 
 .blog,
