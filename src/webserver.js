@@ -17,13 +17,13 @@ export default class WebServer {
     }
 
     start() {
-        const doHTTPS = fs.existsSync('../self.pem') && fs.existsSync('../server-key.pem');
+        const doHTTPS = fs.existsSync('/etc/letsencrypt/live/cphistory.pw/privkey.pem') && fs.existsSync('/etc/letsencrypt/live/cphistory.pw/fullchain.pem');
         const port = process.argv[2] || (doHTTPS ? 443 : 80);
         
         if (doHTTPS) {
             const options = {
-                key: fs.readFileSync('../server-key.pem'),
-                cert: fs.readFileSync('../self.pem'),
+                key: fs.readFileSync('/etc/letsencrypt/live/cphistory.pw/privkey.pem'),
+                cert: fs.readFileSync('/etc/letsencrypt/live/cphistory.pw/fullchain.pem'),
             };
 
             // Create HTTPS server
