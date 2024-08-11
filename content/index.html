@@ -39,11 +39,11 @@
             socketProxy: [{
                 host,
                 port: 6112,
-                proxyUrl: `${protocol}://${host}:6113`
+                proxyUrl: `${protocol}://${document.location.host}:6113`
             }, {
                 host,
                 port: 9875,
-                proxyUrl: `${protocol}://${host}:9876`
+                proxyUrl: `${protocol}://${document.location.host}:9876`
             }]
         };
     </script>
