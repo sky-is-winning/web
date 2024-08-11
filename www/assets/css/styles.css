@@ -855,7 +855,7 @@ progress {
 
     .col-sm-6 {
         flex: 0 0 auto;
-        width: 50%
+        width: 100%
     }
 
     .col-sm-7 {
@@ -8905,6 +8905,20 @@ html {
     background-size: cover
 }
 
+@media screen and (max-width: 768px) {
+    body,
+    html {
+        font-size: 1.75rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    body,
+    html {
+        font-size: 1.5rem;
+    }
+}
+
 h1,
 h2,
 h3 {
@@ -8983,13 +8997,13 @@ a:hover {
     background-size: 1px 148px;
     border-radius: 10px;
     padding: 15px 20px;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 24px;
     font-weight: 700;
     transition: all .2s ease;
     cursor: pointer;
     transition: all .3s ease 0s;
-    width: 150px
+    width: 6.5em
 }
 
 .link-button_button__hvJQn.link-button_yellow__XEYeP {
@@ -9115,8 +9129,7 @@ a:hover {
 }
 
 .layout_footer__hVpBj .layout_inner__cEo9S .layout_middle__aP0go {
-    flex: 1 1;
-    max-width: 924px
+    max-width: calc(100% - 15vw);
 }
 
 .layout_footer__hVpBj .layout_inner__cEo9S .layout_middle__aP0go .layout_disclaimer__xukF4,
@@ -9158,7 +9171,7 @@ a:hover {
     filter: invert(98%) sepia(33%) saturate(164%) hue-rotate(158deg) brightness(114%) contrast(100%)
 }
 
-@media screen and (max-width:920px) {
+@media screen and (max-aspect-ratio:1/1) {
     .layout_header__blB6l .layout_inner__cEo9S {
         width: auto;
         flex-direction: column
@@ -9216,13 +9229,13 @@ a:hover {
 }
 
 .feature-card_card__IOblc h3.feature-card_heading__g7utl {
-    font-size: 22px;
+    font-size: 1.4rem;
     margin: 0 0 10px;
     padding: 0
 }
 
 .feature-card_card__IOblc .feature-card_body__V32YX {
-    font-size: 16px
+    font-size: 1rem;
 }
 
 .feature-card_card__IOblc img {
@@ -9283,7 +9296,11 @@ a:hover {
 
 #popup-content p {
     margin: 0 0 20px;
-    font-size: 18px;
+    font-size: 1.2rem;
+}
+
+#popup-content h2 {
+    font-size: 2rem;
 }
 
 #close-popup {
@@ -9293,7 +9310,7 @@ a:hover {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 #close-popup:hover {
