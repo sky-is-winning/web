@@ -29,6 +29,10 @@ function updateClasses() {
         // Reapply the updated class list to the element
         element.className = classList.join(' ');
     });
+
+    if (document.getElementsByClassName('fullPageText').length > 0) {
+        document.getElementsByClassName('fullPageText')[0].style.minHeight = window.innerHeight - document.getElementsByClassName('layout_header__blB6l')[0].clientHeight - document.getElementsByClassName('layout_footer__hVpBj')[0].clientHeight
+    }
 }
 
 window.addEventListener('resize', updateClasses);
