@@ -12,7 +12,7 @@ export const FORWARD_TO_DASH = {
     "/social/autocomplete/v2/search/suggestions": "autocomplete?$args"
 };
 
-export const forwardToDash = async function(req, res) {
+export const forwardToDash = async function(req, res, PUBLIC_IP) {
     const path = FORWARD_TO_DASH[Object.keys(FORWARD_TO_DASH).find(path => new RegExp(path).test(req.url))];
     let url = `${DASH_URL}/${path}`;
 

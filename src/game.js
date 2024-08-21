@@ -187,7 +187,7 @@ export default class Game {
 
     async serve(prefix, req, res) {
         if (Object.keys(FORWARD_TO_DASH).some(path => new RegExp(path).test(req.url))) {
-            return forwardToDash(req, res);
+            return forwardToDash(req, res, this.PUBLIC_IP);
         }
 
         let fileLoc = prefix + req.url.split("?")[0];
