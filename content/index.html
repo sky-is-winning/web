@@ -30,7 +30,7 @@
     <script>
         const host = "127.0.0.1";
         const protocol = document.location.protocol == 'https:' ? 'wss' : 'ws';
-        const proxyHost = document.location.host.replace('play', 'server')
+        const proxyHost = document.location.protocol == 'https:' ? document.location.host.replace('play', 'server') : host
         window.RufflePlayer = window.RufflePlayer || {};
         window.RufflePlayer.config = {
             polyfills: true,

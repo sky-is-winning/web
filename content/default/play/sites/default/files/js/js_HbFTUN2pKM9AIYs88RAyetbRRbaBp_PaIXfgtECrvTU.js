@@ -1894,7 +1894,7 @@ CP.FlashClient.validateFlashVersion = function(minimumSwfVersion, recommendedSwf
     var result = new CP.Result();
     
     let WR_flashPlugin = navigator.plugins['Shockwave Flash'];
-    if (WR_flashPlugin && WR_flashPlugin.filename == "ruffle.js") {
+    if (WR_flashPlugin && WR_flashPlugin.filename == "ruffle.js" && !(window.shouldAutoLogin())) {
         result.addError(Drupal.settings.snowball_errors.ruffle);
         return result;
     }
