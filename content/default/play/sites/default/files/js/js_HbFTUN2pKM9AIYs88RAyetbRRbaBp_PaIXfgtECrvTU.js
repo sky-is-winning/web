@@ -1899,23 +1899,23 @@ CP.FlashClient.validateFlashVersion = function(minimumSwfVersion, recommendedSwf
         return result;
     }
 
-	if (swfobject.hasFlashPlayerVersion("1")) {
-		if (swfobject.hasFlashPlayerVersion(recommendedSwfVersion)) {
-			// return result;
-		} else if (swfobject.hasFlashPlayerVersion(minimumSwfVersion)) {
-			// recommending upgrade or required upgrade
-			result.addError(Drupal.settings.snowball_errors.flashUpgradeRequired);
-		} else {
-			// Can't say "No Thanks" to minimum version upgrade
-			result.addError(Drupal.settings.snowball_errors.flashMinimumRequired);
-		}
-	} else {
-		if (window.snowball.browserType == 'Chrome') {
-			result.addError(Drupal.settings.snowball_errors.flashInstallRequiredChrome);
-		} else {
-			result.addError(Drupal.settings.snowball_errors.flashInstallRequired);
-		}
-	}
+	// if (swfobject.hasFlashPlayerVersion("1")) {
+	// 	if (swfobject.hasFlashPlayerVersion(recommendedSwfVersion)) {
+	// 		// return result;
+	// 	} else if (swfobject.hasFlashPlayerVersion(minimumSwfVersion)) {
+	// 		// recommending upgrade or required upgrade
+	// 		result.addError(Drupal.settings.snowball_errors.flashUpgradeRequired);
+	// 	} else {
+	// 		// Can't say "No Thanks" to minimum version upgrade
+	// 		result.addError(Drupal.settings.snowball_errors.flashMinimumRequired);
+	// 	}
+	// } else {
+	// 	if (window.snowball.browserType == 'Chrome') {
+	// 		result.addError(Drupal.settings.snowball_errors.flashInstallRequiredChrome);
+	// 	} else {
+	// 		result.addError(Drupal.settings.snowball_errors.flashInstallRequired);
+	// 	}
+	// }
 	return result;
 };
 ;
